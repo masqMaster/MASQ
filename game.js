@@ -115,7 +115,9 @@ export async function initializeGame() {
 
   clearSceneAndState();
 
-  const user = await supabase.auth.getUser();
+  // const user = await supabase.auth.getUser();
+  const client = await supabase;
+  const user = await client.auth.getUser();
   if (user.data.user) {
     gameState.userId = user.data.user.id;
     await ensureUserInDB(gameState.userId, user.data.user.email);
