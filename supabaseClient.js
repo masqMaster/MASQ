@@ -20,4 +20,5 @@ export async function getSupabaseClient() {
   supabase = createClient(url, key);
 
   return supabase;
+  export const supabase;
 }
