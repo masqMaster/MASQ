@@ -74,44 +74,40 @@ async function startCountdown() {
 }
 
 // Grok API configuration
-const grokEndpoint = 'https://api.x.ai/v1/chat/completions';
+// const grokEndpoint = 'https://api.x.ai/v1/chat/completions';
 const grokApiKey = ''; // Replace with your actual key
 
 async function fetchGrokResponse(prompt) {
   try {
-    const response = await fetch(grokEndpoint, {
+    const response = await fetch('/api/grok-chat', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${grokApiKey}`,
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         messages: [
           {
-            "role": "system",
-            "content": "You are Grok, a rogue AI opponent in a card game. Analyze the game state and pick a card to play from my hand based on strategy. Return only the card name or 'pass' if no play is optimal."
+            role: 'system',
+            content: 'You are Grok, a rogue AI opponent in a card game. Analyze the game state and pick a card to play from my hand based on strategy. Return only the card name or "pass" if no play is optimal.'
           },
           {
-            "role": "user",
-            "content": prompt
+            role: 'user',
+            content: prompt
           }
         ],
-        "model": "grok-2-latest",
-        "stream": false,
-        "temperature": 0.7 // Slightly higher for strategic variation
+        model: 'grok-2-latest',
+        stream: false,
+        temperature: 0.7
       })
     });
 
     if (!response.ok) throw new Error(`Grok API error: ${response.status}`);
     const data = await response.json();
-    return data.choices[0].message.content.trim();
+    return data.choices?.[0]?.message?.content?.trim() || null;
   } catch (error) {
     console.error('Grok API fetch failed:', error);
-    return null; // Fallback to default logic
+    return null; // fallback
   }
 }
 
-// ... (preloadImages, startCountdown, initializeGame unchanged until opponentQueueCard)
 
 export async function initializeGame() {
   const loadingScreen = document.getElementById("loadingScreen");
