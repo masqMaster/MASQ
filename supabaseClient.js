@@ -22,18 +22,18 @@
 //   return supabase;
 // }
 
-let supabase = null;
+let cachedClient = null;
 
 export async function getSupabaseClient() {
-  if (supabase) return supabase;
+  if (cachedClient) return cachedClient;
 
   const res = await fetch('/api/get-supabase-key');
   const { url, key } = await res.json();
 
   const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
-  supabase = createClient(url, key);
+  cachedClient = createClient(url, key);
 
-  return supabase;
+  return cachedClient;
 }
 
 // Optional: allow external modules to "wait for it"
