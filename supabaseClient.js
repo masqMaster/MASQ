@@ -39,7 +39,7 @@
 // // Optional: allow external modules to "wait for it"
 // export const supabase = getSupabaseClient();
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 let cachedClient = null;
 
