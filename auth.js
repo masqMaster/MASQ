@@ -302,3 +302,15 @@ export async function getUser() {
   const result = await res.json();
   return result?.user || null;
 }
+
+export async function getSessionUser() {
+  try {
+    const res = await fetch('/api/get-user-session');
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.user || null;
+  } catch (err) {
+    console.error("Session check failed:", err);
+    return null;
+  }
+}
