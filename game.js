@@ -5,7 +5,7 @@ import { shuffle } from './utils.js';
 import { scene, camera, renderer } from './threeSetup.js';
 import { updateUI, log, initUIEvents, hideGameUI } from './ui.js';
 // import { supabase } from './supabaseClient.js';
-import { getUserStats, updateUserStats, ensureUserInDB } from './auth.js';
+import { getUserStats, updateUserStats, ensureUserInDB, playAsGuest } from './auth.js';
 
 export const gameState = {
   player: { health: 30, maxHealth: 30, mana: 1, maxMana: 1, deck: [], hand: [], queuedCards: [], playedCards: [], winStreak: 0, drawCount: 0, totalWins: 0, totalLosses: 0 },
