@@ -193,7 +193,7 @@ export async function signUp(email, password) {
     if (error.message.includes("User already registered")) {
       alert("This email is already signed up. Try logging in instead.");
     } else {
-      alert(Signup Error: ${error.message});
+      alert(`Signup Error: ${error.message}`);
     }
     console.error(error);
   }
