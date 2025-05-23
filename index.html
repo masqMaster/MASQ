@@ -142,7 +142,8 @@
       
 <ul class="angled-btn-group">
   <li>
-    <a href="#" onclick="showAuthPanel()">
+<!--     <a href="#" onclick="showAuthPanel()"> -->
+      <a href="#" id="playGameLink">
       <i class="fa fa-play" aria-hidden="true"></i>
       <span>PLAY GAME</span>
     </a>
@@ -272,6 +273,12 @@
             }
         }
 
+        document.getElementById('playGameLink').addEventListener('click', (e) => {
+          e.preventDefault();
+          showAuthPanel();
+        });
+        
+                
         function hideLoadingScreen() {
             const loadingScreen = document.getElementById("loadingScreen");
             if (loadingScreen) {
