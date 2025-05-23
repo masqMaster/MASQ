@@ -5,6 +5,7 @@ import { shuffle } from './utils.js';
 import { scene, camera, renderer } from './threeSetup.js';
 import { updateUI, log, initUIEvents, hideGameUI } from './ui.js';
 // import { supabase } from './supabaseClient.js';
+import { getSessionUser } from './auth.js';
 import { getUserStats, updateUserStats, ensureUserInDB, playAsGuest } from './auth.js';
 
 export const gameState = {
