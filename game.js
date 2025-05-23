@@ -120,7 +120,7 @@ export async function initializeGame() {
   let email = null;
 
   try {
-    const res = await fetch('/api/get-user');
+    const res = await fetch('/api/get-user-session');
     const data = await res.json();
     if (res.ok && data.user) {
       userId = data.user.id;
