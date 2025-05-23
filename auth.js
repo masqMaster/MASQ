@@ -295,3 +295,10 @@ export async function logout() {
     console.error("Logout error:", error);
   }
 }
+
+export async function getUser() {
+  const res = await fetch('/api/get-user-session');
+  if (!res.ok) return null;
+  const result = await res.json();
+  return result?.user || null;
+}
