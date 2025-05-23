@@ -4,7 +4,7 @@ import { Card, cardLibrary } from './cards.js';
 import { shuffle } from './utils.js';
 import { scene, camera, renderer } from './threeSetup.js';
 import { updateUI, log, initUIEvents, hideGameUI } from './ui.js';
-import { supabase } from './supabaseClient.js';
+// import { supabase } from './supabaseClient.js';
 import { getUserStats, updateUserStats, ensureUserInDB } from './auth.js';
 
 export const gameState = {
@@ -115,19 +115,31 @@ export async function initializeGame() {
 
   clearSceneAndState();
 
-  // const user = await supabase.auth.getUser();
-  const client = await supabase;
-  const user = await client.auth.getUser();
-  if (user.data.user) {
-    gameState.userId = user.data.user.id;
-    await ensureUserInDB(gameState.userId, user.data.user.email);
-    const stats = await getUserStats(gameState.userId);
+  let userId = null;
+  let email = null;
+
+  try {
+    const res = await fetch('/api/get-user');
+    const data = await res.json();
+    if (res.ok && data.user) {
+      userId = data.user.id;
+      email = data.user.email;
+    }
+  } catch (err) {
+    console.warn("No valid session found, falling back to guest mode.");
+  }
+
+  if (userId) {
+    gameState.userId = userId;
+    await ensureUserInDB(userId, email);
+    const stats = await getUserStats(userId);
     gameState.player.totalWins = stats.total_wins;
     gameState.player.totalLosses = stats.total_losses;
     gameState.player.winStreak = stats.win_streak;
     log(`User stats loaded: Wins=${stats.total_wins}, Losses=${stats.total_losses}, Streak=${stats.win_streak}`);
   } else {
-    gameState.userId = null;
+    const guest = await playAsGuest();
+    gameState.userId = guest.user.id;
     gameState.player.totalWins = 0;
     gameState.player.totalLosses = 0;
     gameState.player.winStreak = 0;
