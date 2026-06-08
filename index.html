@@ -158,8 +158,6 @@
             <div class="typewriter-text glow"><span id="line4"> > </span><span class="cursor"></span></div>
             <div class="typewriter-text glow"><span id="line5"> > </span><span class="cursor"></span></div>
             <div class="typewriter-text glow"><span id="line6"> > </span><span class="cursor"></span></div>
-            <br>
-            <span id="copyCA" class="ca-line glow" title="Tap to copy">CA: </span>
         </div>
         
             <div class="clickable-word glow">
@@ -376,8 +374,7 @@
           "Battle Grok — powered by xAPI  — and refine your deck through tactical duels, adaptive challenges, and dynamic matchups.",
           "Native $MASQ cryptocurrency powers in-game purchases — buy packs, flex your decks, and own your digital cards",
           "The first exclusive Golden packs are already available for purchase using $MASQ, for limited time",
-          "Future updates will bring multiplayer tournaments, cross-chain expansions, and a dedicated MASQ app for seamless gameplay anywhere",
-          "CA: "
+          "Future updates will bring multiplayer tournaments, cross-chain expansions, and a dedicated MASQ app for seamless gameplay anywhere"
       ];
       let currentLine = 0;
       let currentChar = 0;
@@ -486,18 +483,6 @@ setInterval(updateCountdown, 1000);
       el.style.display = 'none';
     });
   }
-
-document.getElementById("copyCA").addEventListener("click", function () {
-    const address = this.textContent.replace("CA: ", "").trim();
-    navigator.clipboard.writeText(address).then(() => {
-      this.classList.add("copied");
-      this.textContent = "Copied!";
-      setTimeout(() => {
-        this.classList.remove("copied");
-        this.textContent = "CA: " + address;
-      }, 1500);
-    });
-  });
 
     </script>
 </body>
